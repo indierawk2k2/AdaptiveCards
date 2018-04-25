@@ -756,3 +756,17 @@ std::string WstringToString(const std::wstring& input)
         return utfConverter.to_bytes(input);
     }
 }
+
+
+HRESULT GetXamlBasicStatics(
+    ABI::Windows::UI::Xaml::IXamlBasicStatics ** xamlBasicStatics)
+{
+    static ComPtr<ABI::Windows::UI::Xaml::IXamlBasicStatics> s_xamlBasicStatics;
+
+    if (s_xamlBasicStatics == nullptr)
+    {
+        THROW_IF_FAILED(GetActivationFactory(HStringReference(RuntimeClass_Windows_UI_Xaml_XamlBasic).Get(), &s_xamlBasicStatics));
+    }
+
+    return s_xamlBasicStatics.CopyTo(xamlBasicStatics);
+}
