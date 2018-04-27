@@ -215,18 +215,7 @@ namespace AdaptiveCardsSharedModelUnitTest
             Assert::AreEqual(mediaElement->GetImageAccessibility(), "This is image accessibility data"s);
             Assert::AreEqual(mediaElement->GetWidth(), "10"s);
             Assert::AreEqual(mediaElement->GetHeight(), "10"s);
-
-            Json::FastWriter fastWriter;
-            Json::Value jsonOriginal = ParseUtil::GetJsonValueFromString(cardWithMediaElement);
-            std::string jsonOriginalString = fastWriter.write(jsonOriginal);
-
-            std::string cardString = card->Serialize();
-            Json::Value jsonCard = ParseUtil::GetJsonValueFromString(cardString);
-            cardString = fastWriter.write(jsonOriginal);
-
-            Assert::AreEqual(jsonOriginalString, cardString);
         }
-
     };
 }
 
