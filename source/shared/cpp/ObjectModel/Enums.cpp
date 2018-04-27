@@ -167,7 +167,8 @@ void GetCardElementTypeEnumMappings(
         { CardElementType::ToggleInput, "Input.Toggle" },
         { CardElementType::TextBlock, "TextBlock" },
         { CardElementType::Custom, "Custom" },
-        { CardElementType::Unknown, "Unknown" }
+        { CardElementType::Unknown, "Unknown" },
+        { CardElementType::Media, "Media" },
     };
     static std::unordered_map<std::string, CardElementType, CaseInsensitiveHash, CaseInsensitiveEqualTo> cardElementTypeNameToEnum = GenerateStringToEnumMap<CardElementType>(cardElementTypeEnumToName);
 
