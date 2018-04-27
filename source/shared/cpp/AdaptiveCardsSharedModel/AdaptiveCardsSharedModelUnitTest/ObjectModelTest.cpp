@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
+#include "Media.h"
 #include "TextBlock.h"
+#include "SharedAdaptiveCard.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace AdaptiveCards;
@@ -8,7 +10,7 @@ using namespace std;
 
 namespace AdaptiveCardsSharedModelUnitTest
 {
-    TEST_CLASS(ParseUtilTest)
+    TEST_CLASS(ObjectModelText)
     {
     public:
         // An empty JSON does not produce any selectAction
@@ -180,5 +182,51 @@ namespace AdaptiveCardsSharedModelUnitTest
             Assert::IsFalse(selectAction == nullptr);
             Assert::AreEqual(selectAction->GetElementTypeString(), "Action.Submit"s);
         }
+
+        TEST_METHOD(AAMediaElementTest)
+        {
+            std::string cardWithMediaElement = "{\
+                \"$schema\": \"http://adaptivecards.io/schemas/adaptive-card.json\",\
+                \"type\" : \"AdaptiveCard\",\
+                \"version\" : \"1.0\",\
+                \"body\" : [\
+                    {\
+                        \"type\": \"Media\",\
+                        \"src\" : \"http://www.source.com\",\
+                        \"title\" : \"Media Title\",\
+                        \"image\" : \"http://www.image.com\",\
+                        \"description\" : \"This is some media\",\
+                        \"image_accessibility\" : \"This is image accessibility data\",\
+                        \"width\" : \"10\",\
+                        \"height\" : \"10\"\
+                    }\
+                ]\
+            }";
+
+            auto card = AdaptiveCard::DeserializeFromString(cardWithMediaElement, 1.0)->GetAdaptiveCard();
+            std::shared_ptr<Media> mediaElement = std::static_pointer_cast<Media> (card->GetBody()[0]);
+
+            Assert::IsTrue(mediaElement->GetElementType() == CardElementType::Media);
+            Assert::AreEqual(mediaElement->GetElementTypeString(), "Media"s);
+            Assert::AreEqual(mediaElement->GetSrc(), "http://www.source.com"s);
+            Assert::AreEqual(mediaElement->GetTitle(), "Media Title"s);
+            Assert::AreEqual(mediaElement->GetImage(), "http://www.image.com"s);
+            Assert::AreEqual(mediaElement->GetDescription(), "This is some media"s);
+            Assert::AreEqual(mediaElement->GetImageAccessibility(), "This is image accessibility data"s);
+            Assert::AreEqual(mediaElement->GetWidth(), "10"s);
+            Assert::AreEqual(mediaElement->GetHeight(), "10"s);
+
+            Json::FastWriter fastWriter;
+            Json::Value jsonOriginal = ParseUtil::GetJsonValueFromString(cardWithMediaElement);
+            std::string jsonOriginalString = fastWriter.write(jsonOriginal);
+
+            std::string cardString = card->Serialize();
+            Json::Value jsonCard = ParseUtil::GetJsonValueFromString(cardString);
+            cardString = fastWriter.write(jsonOriginal);
+
+            Assert::AreEqual(jsonOriginalString, cardString);
+        }
+
     };
 }
+
