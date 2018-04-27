@@ -70,6 +70,7 @@ enum class AdaptiveCardSchemaKey
     Data,
     DateInput,
     Default,
+    Description,
     Emphasis,
     ExtraLarge,
     Facts,
@@ -85,6 +86,7 @@ enum class AdaptiveCardSchemaKey
     IconUrl,
     Id,
     Image,
+    ImageAccessibility,
     ImageBaseUrl,
     Images,
     ImageSet,
@@ -127,6 +129,7 @@ enum class AdaptiveCardSchemaKey
     Spacing,
     SpacingDefinition,
     Speak,
+    Src,
     Stretch,
     Style,
     Subtle,
@@ -227,6 +230,7 @@ enum class CardElementType
     ToggleInput,
     Custom,
     Unknown,
+    Media
 };
 
 enum class ActionType
