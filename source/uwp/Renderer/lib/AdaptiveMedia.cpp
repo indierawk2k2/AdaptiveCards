@@ -26,143 +26,17 @@ AdaptiveNamespaceStart
             return E_INVALIDARG;
         }
 
-        m_wrap = sharedMedia->GetWrap();
-        m_subtle = sharedMedia->GetIsSubtle();
-        m_maxLines = sharedMedia->GetMaxLines();
-
-        m_textSize = static_cast<ABI::AdaptiveNamespace::TextSize>(sharedMedia->GetTextSize());
-        m_textWeight = static_cast<ABI::AdaptiveNamespace::TextWeight>(sharedMedia->GetTextWeight());
-        m_foregroundColor = static_cast<ABI::AdaptiveNamespace::ForegroundColor>(sharedMedia->GetTextColor());
-        m_horizontalAlignment = static_cast<ABI::AdaptiveNamespace::HAlignment>(sharedMedia->GetHorizontalAlignment());
-
-        RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetText(), m_text.GetAddressOf()));
-        RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetLanguage(), m_language.GetAddressOf()));
+        RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetDescription(), m_description.GetAddressOf()));
+        RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetHeight(), m_height.GetAddressOf()));
+        RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetImage(), m_image.GetAddressOf()));
+        RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetImageAccessibility(), m_imageAccessibility.GetAddressOf()));
+        RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetSrc(), m_src.GetAddressOf()));
+        RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetTitle(), m_title.GetAddressOf()));
+        RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetWidth(), m_width.GetAddressOf()));
 
         InitializeBaseElement(std::static_pointer_cast<BaseCardElement>(sharedMedia));
         return S_OK;
     } CATCH_RETURN;
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::get_Text(HSTRING* text)
-    {
-        return m_text.CopyTo(text);
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::put_Text(HSTRING text)
-    {
-        return m_text.Set(text);
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::get_Size(ABI::AdaptiveNamespace::TextSize* textSize)
-    {
-        *textSize = m_textSize;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::put_Size(ABI::AdaptiveNamespace::TextSize textSize)
-    {
-        m_textSize = textSize;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::get_Weight(ABI::AdaptiveNamespace::TextWeight* textWeight)
-    {
-        *textWeight = m_textWeight;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::put_Weight(ABI::AdaptiveNamespace::TextWeight textWeight)
-    {
-        m_textWeight = textWeight;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::get_Color(ABI::AdaptiveNamespace::ForegroundColor* foregroundColor)
-    {
-        *foregroundColor = m_foregroundColor;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::put_Color(ABI::AdaptiveNamespace::ForegroundColor foregroundColor)
-    {
-        m_foregroundColor = foregroundColor;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::get_Wrap(boolean* wrap)
-    {
-        *wrap = m_wrap;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::put_Wrap(boolean wrap)
-    {
-        m_wrap = wrap;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::get_IsSubtle(boolean* isSubtle)
-    {
-        *isSubtle = m_subtle;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::put_IsSubtle(boolean isSubtle)
-    {
-        m_subtle = isSubtle;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::get_MaxLines(UINT32* maxLines)
-    {
-        *maxLines = m_maxLines;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::put_MaxLines(UINT32 maxLines)
-    {
-        m_maxLines = maxLines;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::get_HorizontalAlignment(ABI::AdaptiveNamespace::HAlignment* alignment)
-    {
-        *alignment = m_horizontalAlignment;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::put_HorizontalAlignment(ABI::AdaptiveNamespace::HAlignment alignment)
-    {
-        m_horizontalAlignment = alignment;
-        return S_OK;
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::get_Language(HSTRING* language)
-    {
-        return m_language.CopyTo(language);
-    }
-
-    _Use_decl_annotations_
-    HRESULT AdaptiveMedia::put_Language(HSTRING language)
-    {
-        return m_language.Set(language);
-    }
 
     _Use_decl_annotations_
     HRESULT AdaptiveMedia::get_ElementType(ElementType* elementType)
@@ -171,27 +45,123 @@ AdaptiveNamespaceStart
         return S_OK;
     }
 
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::get_Description(HSTRING* value)
+    {
+        return m_description.CopyTo(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::put_Description(HSTRING value)
+    {
+        return m_description.Set(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::get_Height(HSTRING* value)
+    {
+        return m_height.CopyTo(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::put_Height(HSTRING value)
+    {
+        return m_height.Set(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::get_Image(HSTRING* value)
+    {
+        return m_image.CopyTo(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::put_Image(HSTRING value)
+    {
+        return m_image.Set(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::get_ImageAccessibility(HSTRING* value)
+    {
+        return m_imageAccessibility.CopyTo(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::put_ImageAccessibility(HSTRING value)
+    {
+        return m_imageAccessibility.Set(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::get_Src(HSTRING* value)
+    {
+        return m_src.CopyTo(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::put_Src(HSTRING value)
+    {
+        return m_src.Set(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::get_Title(HSTRING* value)
+    {
+        return m_title.CopyTo(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::put_Title(HSTRING value)
+    {
+        return m_title.Set(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::get_Width(HSTRING* value)
+    {
+        return m_width.CopyTo(value);
+    }
+
+    _Use_decl_annotations_
+    HRESULT AdaptiveMedia::put_Width(HSTRING value)
+    {
+        return m_width.Set(value);
+    }
+
     HRESULT AdaptiveMedia::GetSharedModel(std::shared_ptr<AdaptiveSharedNamespace::BaseCardElement>& sharedMedia) try
     {
         std::shared_ptr<AdaptiveSharedNamespace::Media> media = std::make_shared<AdaptiveSharedNamespace::Media>();
 
         RETURN_IF_FAILED(SetSharedElementProperties(std::static_pointer_cast<AdaptiveSharedNamespace::BaseCardElement>(media)));
 
-        media->SetWrap(m_wrap);
-        media->SetIsSubtle(m_subtle);
-        media->SetMaxLines(m_maxLines);
-        media->SetTextSize(static_cast<AdaptiveSharedNamespace::TextSize>(m_textSize));
-        media->SetTextWeight(static_cast<AdaptiveSharedNamespace::TextWeight>(m_textWeight));
-        media->SetTextColor(static_cast<AdaptiveSharedNamespace::ForegroundColor>(m_foregroundColor));
-        media->SetHorizontalAlignment(static_cast<AdaptiveSharedNamespace::HorizontalAlignment>(m_horizontalAlignment));
+        std::string description;
+        RETURN_IF_FAILED(HStringToUTF8(m_description.Get(), description));
+        media->SetDescription(description);
 
-        std::string text;
-        RETURN_IF_FAILED(HStringToUTF8(m_text.Get(), text));
-        media->SetText(text);
+        std::string height;
+        RETURN_IF_FAILED(HStringToUTF8(m_height.Get(), height));
+        media->SetHeight(height);
 
-        std::string language;
-        RETURN_IF_FAILED(HStringToUTF8(m_language.Get(), language));
-        media->SetLanguage(language);
+        std::string image;
+        RETURN_IF_FAILED(HStringToUTF8(m_image.Get(), image));
+        media->SetImage(image);
+
+        std::string imageAccessibility;
+        RETURN_IF_FAILED(HStringToUTF8(m_imageAccessibility.Get(), imageAccessibility));
+        media->SetImageAccessibility(imageAccessibility);
+
+        std::string src;
+        RETURN_IF_FAILED(HStringToUTF8(m_src.Get(), src));
+        media->SetSrc(src);
+
+        std::string title;
+        RETURN_IF_FAILED(HStringToUTF8(m_title.Get(), title));
+        media->SetTitle(title);
+
+        std::string width;
+        RETURN_IF_FAILED(HStringToUTF8(m_width.Get(), width));
+        media->SetWidth(width);
 
         sharedMedia = media;
         return S_OK;

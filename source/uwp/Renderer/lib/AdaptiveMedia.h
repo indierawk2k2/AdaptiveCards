@@ -21,8 +21,26 @@ AdaptiveNamespaceStart
         HRESULT RuntimeClassInitialize(_In_ const std::shared_ptr<AdaptiveSharedNamespace::Media>& sharedMedia);
 
         // IAdaptiveMedia
-        IFACEMETHODIMP get_Text(_Out_ HSTRING *text);
-        IFACEMETHODIMP put_Text(_In_ HSTRING text);
+        IFACEMETHODIMP get_Description(_Out_ HSTRING *text);
+        IFACEMETHODIMP put_Description(_In_ HSTRING text);
+
+        IFACEMETHODIMP get_Height(_Out_ HSTRING *text);
+        IFACEMETHODIMP put_Height(_In_ HSTRING text);
+
+        IFACEMETHODIMP get_Image(_Out_ HSTRING *text);
+        IFACEMETHODIMP put_Image(_In_ HSTRING text);
+
+        IFACEMETHODIMP get_ImageAccessibility(_Out_ HSTRING *text);
+        IFACEMETHODIMP put_ImageAccessibility(_In_ HSTRING text);
+
+        IFACEMETHODIMP get_Src(_Out_ HSTRING *text);
+        IFACEMETHODIMP put_Src(_In_ HSTRING text);
+
+        IFACEMETHODIMP get_Title(_Out_ HSTRING *text);
+        IFACEMETHODIMP put_Title(_In_ HSTRING text);
+
+        IFACEMETHODIMP get_Width(_Out_ HSTRING *text);
+        IFACEMETHODIMP put_Width(_In_ HSTRING text);
 
         // IAdaptiveCardElement
         IFACEMETHODIMP get_ElementType(_Out_ ABI::AdaptiveNamespace::ElementType* elementType);
@@ -52,16 +70,14 @@ AdaptiveNamespaceStart
         }
 
     private:
-        boolean m_wrap;
-        boolean m_subtle;
-        UINT32 m_maxLines;
-        Microsoft::WRL::Wrappers::HString m_text;
-        Microsoft::WRL::Wrappers::HString m_language;
-        ABI::AdaptiveNamespace::TextSize m_textSize;
-        ABI::AdaptiveNamespace::TextWeight m_textWeight;
-        ABI::AdaptiveNamespace::ForegroundColor m_foregroundColor;
-        ABI::AdaptiveNamespace::HAlignment m_horizontalAlignment;
-    };
+        Microsoft::WRL::Wrappers::HString m_description;
+        Microsoft::WRL::Wrappers::HString m_height;
+        Microsoft::WRL::Wrappers::HString m_image;
+        Microsoft::WRL::Wrappers::HString m_imageAccessibility;
+        Microsoft::WRL::Wrappers::HString m_src;
+        Microsoft::WRL::Wrappers::HString m_title;
+        Microsoft::WRL::Wrappers::HString m_width;
+};
 
     ActivatableClass(AdaptiveMedia);
 AdaptiveNamespaceEnd

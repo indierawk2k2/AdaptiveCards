@@ -13,6 +13,7 @@
 #include "AdaptiveFactSet.h"
 #include "AdaptiveImage.h"
 #include "AdaptiveImageSet.h"
+#include "AdaptiveMedia.h"
 #include "AdaptiveNumberInput.h"
 #include "AdaptiveOpenUrlAction.h"
 #include "AdaptiveSeparator.h"
@@ -304,7 +305,7 @@ HRESULT GenerateContainedElementsProjection(
             break;
         case CardElementType::FactSet:
             RETURN_IF_FAILED(MakeAndInitialize<::AdaptiveNamespace::AdaptiveFactSet>(&projectedContainedElement,
-                //std::AdaptivePointerCast<AdaptiveSharedNamespace::FactSet>(containedElement)));
+                std::AdaptivePointerCast<AdaptiveSharedNamespace::FactSet>(containedElement)));
             break;
         case CardElementType::ImageSet:
             RETURN_IF_FAILED(MakeAndInitialize<::AdaptiveNamespace::AdaptiveImageSet>(&projectedContainedElement,
