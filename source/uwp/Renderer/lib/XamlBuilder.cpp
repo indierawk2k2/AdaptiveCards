@@ -380,6 +380,15 @@ AdaptiveNamespaceStart
         XamlHelpers::AppendXamlElementToPanel(outerPanelAsPanel.Get(), rootAsPanel.Get(), adaptiveCardHeightType);
         THROW_IF_FAILED(outerPanelAsPanel.CopyTo(outerElementContainer));
 
+        if (m_fixedHeight)
+        {
+            ComPtr<IFrameworkElement> rootAsFrameworkElement;
+            THROW_IF_FAILED(rootElement.As(&rootAsFrameworkElement));
+            rootAsFrameworkElement->put_Width(m_fixedWidth);
+            rootAsFrameworkElement->put_Height(m_fixedHeight);
+            rootAsFrameworkElement->put_MaxHeight(m_fixedHeight);
+        }
+
         if (adaptiveCardHeightType == ABI::AdaptiveNamespace::HeightType::Stretch)
         {
             ComPtr<IFrameworkElement> rootAsFrameworkElement;
@@ -1917,12 +1926,13 @@ AdaptiveNamespaceStart
             // Finally add the column container to the grid
             XamlHelpers::AppendXamlElementToPanel(xamlColumn.Get(), gridAsPanel.Get());
 
-            Size columnSize;
-            THROW_IF_FAILED(xamlColumn->get_DesiredSize(&columnSize));
-            maxColumnHeight = max(maxColumnHeight, columnSize.Height);
+            // Size columnSize;
+            // THROW_IF_FAILED(xamlColumn->get_DesiredSize(&columnSize));
+            // maxColumnHeight = max(maxColumnHeight, columnSize.Height);
         });
 
         // Iterate over all the columns and asign the height for each column
+        /*
         ComPtr<IPanel> gridAsPanel;
         THROW_IF_FAILED(xamlGrid.As(&gridAsPanel));
         ComPtr<IVector<UIElement*>> panelChildren;
@@ -1940,6 +1950,7 @@ AdaptiveNamespaceStart
             columnSize.Height = static_cast<float>(maxColumnHeight);
             THROW_IF_FAILED(column->Measure(columnSize));
         }
+        */
 
         ComPtr<IFrameworkElement> columnSetAsFrameworkElement;
         THROW_IF_FAILED(xamlGrid.As(&columnSetAsFrameworkElement));

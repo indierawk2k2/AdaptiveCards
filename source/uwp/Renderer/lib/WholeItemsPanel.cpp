@@ -50,7 +50,7 @@ AdaptiveNamespaceStart
         RETURN_IF_FAILED(QueryInterface(__uuidof(IFrameworkElement), reinterpret_cast<void**>(spThisAsFrameworkElement.GetAddressOf())));
         Thickness marginThickness;
         RETURN_IF_FAILED(spThisAsFrameworkElement->get_Margin(&marginThickness));
-        availableSize.Height = availableSize.Height - static_cast<FLOAT>(marginThickness.Top + marginThickness.Bottom);
+        // availableSize.Height = availableSize.Height - static_cast<FLOAT>(marginThickness.Top + marginThickness.Bottom);
 
         const Size noVerticalLimit{ availableSize.Width, numeric_limits<float>::infinity() };
 
@@ -62,6 +62,7 @@ AdaptiveNamespaceStart
             RETURN_IF_FAILED(spChildren->GetAt(i, spChild.GetAddressOf()));
             
             // If the child is a column it may have stretchable items, so return the column height to auto resize itself
+            /*
             ComPtr<IGrid> spChildAsGrid;
             if (SUCCEEDED(spChild.As(&spChildAsGrid)))
             {
@@ -87,6 +88,7 @@ AdaptiveNamespaceStart
                     }
                 }
             }
+            */
             
             if (IsUIElementInStretchableList(spChild.Get()))
             {
@@ -258,12 +260,15 @@ AdaptiveNamespaceStart
         }
 
         // If the available size was giving infinite when building the card, then once all the elements are placed the available size is the size of all the elements placed
+        /*
         if (availableSize.Height == numeric_limits<float>::infinity())
         {
             availableSize.Height = currentHeight;
         }
+        */
 
         // Second pass: Check if any of the elements is a Grid, we cant modify the Measure method for those as I dont know how the Grids work internally
+        /*
         for (unsigned int i{}; i < count; ++i)
         {
             ComPtr<IUIElement> spChild;
@@ -292,10 +297,11 @@ AdaptiveNamespaceStart
                         maxHeight = max(maxHeight, columnSize.Height);
                     }
 
-                    ResizeUIElementCollectionToSameHeight(columns.Get(), maxHeight);
+                    // ResizeUIElementCollectionToSameHeight(columns.Get(), maxHeight);
                 }
             }
         }
+        */
 
         // Third pass: let the stretchable elements get the space they need
         // If all the elements were rendered, at least one item may be stretched and the height is defined
