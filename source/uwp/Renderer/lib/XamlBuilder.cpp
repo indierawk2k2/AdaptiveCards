@@ -2577,6 +2577,15 @@ AdaptiveNamespaceStart
         THROW_IF_FAILED(adaptiveMedia->get_Src(&sourceUri));
         THROW_IF_FAILED(mediaElement->put_Source(sourceUri.Get()));
 
+        ComPtr<IFrameworkElement> mediaAsFrameworkElement;
+        THROW_IF_FAILED(mediaElement.As(&mediaAsFrameworkElement));
+
+        THROW_IF_FAILED(mediaElement->put_AutoPlay(false));
+
+        ComPtr<IMediaElement2> mediaElement2;
+        THROW_IF_FAILED(mediaElement.As(&mediaElement2));
+        THROW_IF_FAILED(mediaElement2->put_AreTransportControlsEnabled(true));
+
         THROW_IF_FAILED(mediaElement.CopyTo(mediaControl));
     }
 
