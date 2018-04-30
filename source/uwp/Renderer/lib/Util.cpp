@@ -135,6 +135,9 @@ HRESULT GenerateSharedElements(
             case ABI::AdaptiveNamespace::ElementType::NumberInput:
                 baseCardElement = GetSharedModel<AdaptiveSharedNamespace::BaseCardElement, ABI::AdaptiveNamespace::IAdaptiveCardElement, AdaptiveNamespace::AdaptiveNumberInput>(item);
                 break;
+            case ABI::AdaptiveNamespace::ElementType::Media:
+                baseCardElement = GetSharedModel<AdaptiveSharedNamespace::BaseCardElement, ABI::AdaptiveNamespace::IAdaptiveCardElement, AdaptiveNamespace::AdaptiveMedia>(item);
+                break;
             case ABI::AdaptiveNamespace::ElementType::TextBlock:
                 baseCardElement = GetSharedModel<AdaptiveSharedNamespace::BaseCardElement, ABI::AdaptiveNamespace::IAdaptiveCardElement, AdaptiveNamespace::AdaptiveTextBlock>(item);
                 break;
@@ -301,7 +304,7 @@ HRESULT GenerateContainedElementsProjection(
             break;
         case CardElementType::FactSet:
             RETURN_IF_FAILED(MakeAndInitialize<::AdaptiveNamespace::AdaptiveFactSet>(&projectedContainedElement,
-                std::AdaptivePointerCast<AdaptiveSharedNamespace::FactSet>(containedElement)));
+                //std::AdaptivePointerCast<AdaptiveSharedNamespace::FactSet>(containedElement)));
             break;
         case CardElementType::ImageSet:
             RETURN_IF_FAILED(MakeAndInitialize<::AdaptiveNamespace::AdaptiveImageSet>(&projectedContainedElement,
@@ -314,6 +317,10 @@ HRESULT GenerateContainedElementsProjection(
         case CardElementType::DateInput:
             RETURN_IF_FAILED(MakeAndInitialize<::AdaptiveNamespace::AdaptiveDateInput>(&projectedContainedElement,
                 std::AdaptivePointerCast<AdaptiveSharedNamespace::DateInput>(containedElement)));
+            break;
+        case CardElementType::Media:
+            RETURN_IF_FAILED(MakeAndInitialize<::AdaptiveNamespace::AdaptiveMedia>(&projectedContainedElement,
+                std::AdaptivePointerCast<AdaptiveSharedNamespace::Media>(containedElement)));
             break;
         case CardElementType::NumberInput:
             RETURN_IF_FAILED(MakeAndInitialize<::AdaptiveNamespace::AdaptiveNumberInput>(&projectedContainedElement,
