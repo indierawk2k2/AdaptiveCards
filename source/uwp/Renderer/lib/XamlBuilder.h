@@ -103,6 +103,11 @@ AdaptiveNamespaceStart
             _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
             _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
             _Outptr_ ABI::Windows::UI::Xaml::IUIElement** toggleInputControl);
+        static void BuildMedia(
+            _In_ ABI::AdaptiveNamespace::IAdaptiveCardElement* adaptiveCardElement,
+            _In_ ABI::AdaptiveNamespace::IAdaptiveRenderContext* renderContext,
+            _In_ ABI::AdaptiveNamespace::IAdaptiveRenderArgs* renderArgs,
+            _Outptr_ ABI::Windows::UI::Xaml::IUIElement** toggleInputControl);
         template<typename T>
         static HRESULT TryGetResourceFromResourceDictionaries(
             _In_ ABI::Windows::UI::Xaml::IResourceDictionary* resourceDictionary,

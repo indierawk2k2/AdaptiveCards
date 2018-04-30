@@ -82,6 +82,7 @@
     <ClCompile Include="lib\AdaptiveInputElement.cpp" />
     <ClCompile Include="lib\AdaptiveActionElement.cpp" />
     <ClCompile Include="lib\AdaptiveMedia.cpp" />
+    <ClCompile Include="lib\AdaptiveMediaRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\AdaptiveCard.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="lib\AdaptiveInputElement.h" />
     <ClInclude Include="lib\AdaptiveActionElement.h" />
     <ClInclude Include="lib\AdaptiveMedia.h" />
+    <ClInclude Include="lib\AdaptiveMediaRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="idl\AdaptiveCards.Rendering.Uwp.idl" />

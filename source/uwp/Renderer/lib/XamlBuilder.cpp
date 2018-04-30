@@ -2560,6 +2560,26 @@ AdaptiveNamespaceStart
         AddInputValueToContext(renderContext, adaptiveCardElement, *toggleInputControl);
     }
 
+    _Use_decl_annotations_
+    void XamlBuilder::BuildMedia(
+        IAdaptiveCardElement* adaptiveCardElement,
+        IAdaptiveRenderContext* renderContext,
+        IAdaptiveRenderArgs* renderArgs,
+        IUIElement** mediaControl)
+    {
+        ComPtr<IMediaElement> mediaElement = XamlHelpers::CreateXamlClass<IMediaElement>(HStringReference(RuntimeClass_Windows_UI_Xaml_Controls_MediaElement));
+
+        ComPtr<IAdaptiveCardElement> localCardElement{ adaptiveCardElement };
+        ComPtr<IAdaptiveMedia> adaptiveMedia;
+        THROW_IF_FAILED(localCardElement.As(&adaptiveMedia));
+
+        ComPtr<IUriRuntimeClass> sourceUri;
+        THROW_IF_FAILED(adaptiveMedia->get_Src(&sourceUri));
+        THROW_IF_FAILED(mediaElement->put_Source(sourceUri.Get()));
+
+        THROW_IF_FAILED(mediaElement.CopyTo(mediaControl));
+    }
+
     bool XamlBuilder::SupportsInteractivity(IAdaptiveHostConfig* hostConfig)
     {
         boolean supportsInteractivity;

@@ -563,14 +563,14 @@ AdaptiveNamespaceStart
         [propget] HRESULT Height([out, retval] HSTRING* value);
         [propput] HRESULT Height([in] HSTRING value);
 
-        [propget] HRESULT Image([out, retval] HSTRING* value);
-        [propput] HRESULT Image([in] HSTRING value);
+        [propget] HRESULT Image([out, retval] Windows.Foundation.Uri** value);
+        [propput] HRESULT Image([in] Windows.Foundation.Uri* value);
 
         [propget] HRESULT ImageAccessibility([out, retval] HSTRING* value);
         [propput] HRESULT ImageAccessibility([in] HSTRING value);
 
-        [propget] HRESULT Src([out, retval] HSTRING* value);
-        [propput] HRESULT Src([in] HSTRING value);
+        [propget] HRESULT Src([out, retval] Windows.Foundation.Uri** value);
+        [propput] HRESULT Src([in] Windows.Foundation.Uri* value);
 
         [propget] HRESULT Title([out, retval] HSTRING* value);
         [propput] HRESULT Title([in] HSTRING value);
@@ -2816,6 +2816,21 @@ AdaptiveNamespaceStart
 #endif        
     ]
     runtimeclass AdaptiveFactSetRenderer
+    {
+        [default] interface IAdaptiveElementRenderer;
+        interface IAdaptiveElementParser;
+    };
+
+    [
+        version(NTDDI_WIN10_RS1),
+        activatable(NTDDI_WIN10_RS1),
+#ifdef ADAPTIVE_CARDS_WINDOWS
+        contract(InternalContract, 1),
+        internal,
+        activatable(InternalContract, 1)
+#endif        
+    ]
+    runtimeclass AdaptiveMediaRenderer
     {
         [default] interface IAdaptiveElementRenderer;
         interface IAdaptiveElementParser;

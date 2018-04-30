@@ -10,6 +10,7 @@ using namespace ABI::AdaptiveNamespace;
 using namespace ABI::Windows::Foundation::Collections;
 using namespace ABI::Windows::UI::Xaml;
 using namespace ABI::Windows::UI::Xaml::Controls;
+using namespace ABI::Windows::Foundation;
 
 AdaptiveNamespaceStart
     HRESULT AdaptiveMedia::RuntimeClassInitialize() noexcept try
@@ -26,11 +27,26 @@ AdaptiveNamespaceStart
             return E_INVALIDARG;
         }
 
+        ComPtr<IUriRuntimeClassFactory> uriActivationFactory;
+        RETURN_IF_FAILED(GetActivationFactory(
+            HStringReference(RuntimeClass_Windows_Foundation_Uri).Get(),
+            &uriActivationFactory));
+
+        std::wstring src = StringToWstring(sharedMedia->GetSrc());
+        if (!src.empty())
+        {
+            RETURN_IF_FAILED(uriActivationFactory->CreateUri(HStringReference(src.c_str()).Get(), m_src.GetAddressOf()));
+        }
+
+        std::wstring image = StringToWstring(sharedMedia->GetImage());
+        if (!image.empty())
+        {
+            RETURN_IF_FAILED(uriActivationFactory->CreateUri(HStringReference(image.c_str()).Get(), m_image.GetAddressOf()));
+        }
+
         RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetDescription(), m_description.GetAddressOf()));
         RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetHeight(), m_height.GetAddressOf()));
-        RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetImage(), m_image.GetAddressOf()));
         RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetImageAccessibility(), m_imageAccessibility.GetAddressOf()));
-        RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetSrc(), m_src.GetAddressOf()));
         RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetTitle(), m_title.GetAddressOf()));
         RETURN_IF_FAILED(UTF8ToHString(sharedMedia->GetWidth(), m_width.GetAddressOf()));
 
@@ -70,15 +86,16 @@ AdaptiveNamespaceStart
     }
 
     _Use_decl_annotations_
-    HRESULT AdaptiveMedia::get_Image(HSTRING* value)
+    HRESULT AdaptiveMedia::get_Image(IUriRuntimeClass** value)
     {
         return m_image.CopyTo(value);
     }
 
     _Use_decl_annotations_
-    HRESULT AdaptiveMedia::put_Image(HSTRING value)
+    HRESULT AdaptiveMedia::put_Image(IUriRuntimeClass* value)
     {
-        return m_image.Set(value);
+        m_image = value;
+        return S_OK;
     }
 
     _Use_decl_annotations_
@@ -94,15 +111,16 @@ AdaptiveNamespaceStart
     }
 
     _Use_decl_annotations_
-    HRESULT AdaptiveMedia::get_Src(HSTRING* value)
+    HRESULT AdaptiveMedia::get_Src(IUriRuntimeClass** value)
     {
         return m_src.CopyTo(value);
     }
 
     _Use_decl_annotations_
-    HRESULT AdaptiveMedia::put_Src(HSTRING value)
+    HRESULT AdaptiveMedia::put_Src(IUriRuntimeClass* value)
     {
-        return m_src.Set(value);
+        m_src = value;
+        return S_OK;
     }
 
     _Use_decl_annotations_
@@ -143,17 +161,9 @@ AdaptiveNamespaceStart
         RETURN_IF_FAILED(HStringToUTF8(m_height.Get(), height));
         media->SetHeight(height);
 
-        std::string image;
-        RETURN_IF_FAILED(HStringToUTF8(m_image.Get(), image));
-        media->SetImage(image);
-
         std::string imageAccessibility;
         RETURN_IF_FAILED(HStringToUTF8(m_imageAccessibility.Get(), imageAccessibility));
         media->SetImageAccessibility(imageAccessibility);
-
-        std::string src;
-        RETURN_IF_FAILED(HStringToUTF8(m_src.Get(), src));
-        media->SetSrc(src);
 
         std::string title;
         RETURN_IF_FAILED(HStringToUTF8(m_title.Get(), title));
@@ -162,6 +172,22 @@ AdaptiveNamespaceStart
         std::string width;
         RETURN_IF_FAILED(HStringToUTF8(m_width.Get(), width));
         media->SetWidth(width);
+
+        HString urlTemp;
+        std::string urlString;
+        if (m_image != nullptr)
+        {
+            m_image->get_AbsoluteUri(urlTemp.GetAddressOf());
+            RETURN_IF_FAILED(HStringToUTF8(urlTemp.Get(), urlString));
+            media->SetImage(urlString);
+        }
+
+        if (m_src != nullptr)
+        {
+            m_src->get_AbsoluteUri(urlTemp.GetAddressOf());
+            RETURN_IF_FAILED(HStringToUTF8(urlTemp.Get(), urlString));
+            media->SetSrc(urlString);
+        }
 
         sharedMedia = media;
         return S_OK;

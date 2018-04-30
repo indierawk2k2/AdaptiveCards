@@ -27,14 +27,14 @@ AdaptiveNamespaceStart
         IFACEMETHODIMP get_Height(_Out_ HSTRING *text);
         IFACEMETHODIMP put_Height(_In_ HSTRING text);
 
-        IFACEMETHODIMP get_Image(_Out_ HSTRING *text);
-        IFACEMETHODIMP put_Image(_In_ HSTRING text);
+        IFACEMETHODIMP get_Image(_Out_ ABI::Windows::Foundation::IUriRuntimeClass** url);
+        IFACEMETHODIMP put_Image(_In_ ABI::Windows::Foundation::IUriRuntimeClass* url);
 
         IFACEMETHODIMP get_ImageAccessibility(_Out_ HSTRING *text);
         IFACEMETHODIMP put_ImageAccessibility(_In_ HSTRING text);
 
-        IFACEMETHODIMP get_Src(_Out_ HSTRING *text);
-        IFACEMETHODIMP put_Src(_In_ HSTRING text);
+        IFACEMETHODIMP get_Src(_Out_ ABI::Windows::Foundation::IUriRuntimeClass** url);
+        IFACEMETHODIMP put_Src(_In_ ABI::Windows::Foundation::IUriRuntimeClass* url);
 
         IFACEMETHODIMP get_Title(_Out_ HSTRING *text);
         IFACEMETHODIMP put_Title(_In_ HSTRING text);
@@ -72,11 +72,12 @@ AdaptiveNamespaceStart
     private:
         Microsoft::WRL::Wrappers::HString m_description;
         Microsoft::WRL::Wrappers::HString m_height;
-        Microsoft::WRL::Wrappers::HString m_image;
         Microsoft::WRL::Wrappers::HString m_imageAccessibility;
-        Microsoft::WRL::Wrappers::HString m_src;
         Microsoft::WRL::Wrappers::HString m_title;
         Microsoft::WRL::Wrappers::HString m_width;
+
+        Microsoft::WRL::ComPtr<ABI::Windows::Foundation::IUriRuntimeClass> m_src;
+        Microsoft::WRL::ComPtr<ABI::Windows::Foundation::IUriRuntimeClass> m_image;
 };
 
     ActivatableClass(AdaptiveMedia);
