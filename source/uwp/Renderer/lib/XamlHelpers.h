@@ -72,6 +72,15 @@ AdaptiveNamespaceStart
 
             if (heightType == ABI::AdaptiveNamespace::HeightType::Stretch)
             {
+                ComPtr<IFrameworkElement> elementAsFrameworkElement;
+                if (SUCCEEDED(localXamlElement.As(&elementAsFrameworkElement)))
+                {
+                    elementAsFrameworkElement->put_VerticalAlignment(VerticalAlignment::VerticalAlignment_Stretch);
+                }
+            }
+            /*
+            if (heightType == ABI::AdaptiveNamespace::HeightType::Stretch)
+            {
                 ComPtr<IPanel> spPanel(panel);
                 ComPtr<IWholeItemsPanel> wholeItemsPanel;
                 if (SUCCEEDED(spPanel.As(&wholeItemsPanel)))
@@ -80,6 +89,7 @@ AdaptiveNamespaceStart
                     panel->AddElementToStretchablesList(elementToAppend.Get());
                 }
             }
+            */
         }
 
         template<typename T>
